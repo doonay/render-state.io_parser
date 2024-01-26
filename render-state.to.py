@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from headers import headers
-
+from SQLite3.select_data import select_all_categories, select_category_by_id, select_category_by_item_id, select_category_by_category_name
 import sys
 
 headers = headers
@@ -14,6 +14,7 @@ def get_pagination(url):
 
 def get_one_page_data():
 	pass
+
 def get_detail_data(url):
 	print(url)
 	r = requests.get(url)
@@ -41,23 +42,6 @@ def get_detail_data(url):
 def main(url):
 	pagination = get_pagination(url)
 	for i in range(1, pagination+1, 1):
-		headers = {
-			'authority': 'render-state.to',
-			'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-			'accept-language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
-			'cache-control': 'max-age=0',
-			'cookie': 'cf_clearance=vXBZsqmvoHWQ09lA6kW3SkMwL_uyjbWIDy6eP1uOs2Y-1706217984-1-ATwikEpJXOGUe9aynLGSn54WZ/D2NWFbjSS+ObwJ+r8SOWWCze4ebP1TiGvLPFaogom8yh1G9y2Xyj1HiqwI4F0=; _iub_cs-35772605=%7B%22timestamp%22%3A%222024-01-25T21%3A33%3A10.918Z%22%2C%22version%22%3A%221.54.0%22%2C%22purposes%22%3A%7B%221%22%3Atrue%2C%222%22%3Afalse%2C%223%22%3Afalse%2C%224%22%3Afalse%2C%225%22%3Afalse%7D%2C%22id%22%3A%2235772605%22%2C%22cons%22%3A%7B%22rand%22%3A%22601865%22%7D%7D; euconsent-v2=CP48G0AP48G0AB7E8BENAkEgAAAAAAAAAAAAAABBQgIgA4AM-AjwBKoCZwG-AO2AdyBBQCRAElAJRgS0AmOBMkCaQQUABQkFsABAAC4AKAAqABwADwAIIAXgBhADIANQAeABEACYAFUAMwAbwA9AB-AEJAIYAiQBHACWAE0AMAAYcAygDLAGyAOeAdwB3wD2APiAfYB-wD_AQAAikBFwEYAI1ASIBJQCUwE_AUGAqACrgFzAL0AYoA0QBtADcAHEgR6BIoCdgFDgKPAUiAtgBcgC7wF5gMGAYbAyMDJAGTgMzAZzA1cDWQG3gNzAbqA4IByYDlwHjgPpAgmBBgCEMELQQuAhzBD0EPwI4wR9BH8CRQEkIJMAkyBLACWYEtwJfATAAmYBM4CbgE5gJ0gTuCDUOg4AALgAoACoAHAAQQAuADUAHgARAAmABVgC4ALoAYgAzABvAD0AH6AQwBEgCWAE0AJwAUYAwABhgDKAGiANkAc8A7gDvAHtAPsA_QB_wEUARiAjoCSgEpgJ-AoMBUQFXALEAXOAvIC9AGKANoAbgA4gB1AD7AIvgR6BIoCVAEyAJ2AUPAo8CkAFNAKsAWKAsqBbAFsgLdAXAAuQBdoC7wF5gL6AYMAw0Bj0DIwMkAZOAyoBlgDMwGcgNEAaaA1WBq4GsANvAbqA4sByYDlwHjgPJAfSA-sB9wD-wIAgQYAhbBDkEOgIegRxAjtBH0EfwJFASQAkyBKgCWAEswJdAS-AmABMwCZwE3AJvAThAnMBOmCdoJ3EIHAACwAKAAuABiADUAJgAUwAqgBcADEAG8APQAjgBgADngHcAd4A_wCKAEpAKDAVEBVwC5gGKANoAdQBHoCVAFNAKsAWKAsoBaIC4AFyAMjAZOAzkBogDVQHAAPHAfSA_sCDAEKAIWgQ6Ah6BHECRQEkAJMgS6AmcBOYCdxKBuAAgABYAFAAOQAwADEAHgARAAmABVAC4AGKAQwBEgCOAFGAMAAbIA7wB-QFRAVcAuYBigDqAImARfAj0CRQFHgKaAWKAsoBbAC84GRgZIAycBnIDWAG3gOAAfSBAECB4EGAIQgQ9AjiBIoCSAEmQJdAS-AmYBM4CbgE4QJzATuKQVwAFwAUABUADgAIIAYABqADwAIgATAApABVADEAGYAP0AhgCJAFGAMAAZQA0QBsgDnAHfAPwA_QCLAEYgI6AkoBKQCgwFRAVcAuYBeQDFAG0ANwAdQA9oB9gETAIvgR6BIoCdgFDgKQAU0AqwBYoC2AFwALkAXaAvMBfQDDYGRgZIAycBlgDOYGsAayA28BuoDggHJgOXAeKA8cB9ID-wIJgQYAhCBC0CGcEOQQ6AjiBHaCPoI_gSKAkhBJgEmQJZgS6Al8BMACZgEzgJvATmAncAAA; _iub_cs-35772605-granular=%7B%22gac%22%3A%22MX4%3D%22%7D',
-			'referer': 'https://render-state.to/p/dt-joana-for-genesis-8-female/',
-			'sec-ch-ua': '"Not A(Brand";v="99", "Google Chrome";v="121", "Chromium";v="121"',
-			'sec-ch-ua-mobile': '?0',
-			'sec-ch-ua-platform': '"Windows"',
-			'sec-fetch-dest': 'document',
-			'sec-fetch-mode': 'navigate',
-			'sec-fetch-site': 'same-origin',
-			'sec-fetch-user': '?1',
-			'upgrade-insecure-requests': '1',
-			'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36',
-		}
 		url = f'https://render-state.to/cat/genesis-8-1-female/page/{i}/'
 		print(url)
 		r = requests.get(url, headers=headers)
@@ -88,5 +72,36 @@ def main(url):
 		'''
 			
 if __name__ == '__main__':
+	categories = select_all_categories()
+	for cat in categories:
+		print(cat['category_name'])
+	
+	#print(type(categories))
+	#
+	#print(type(cat))
+	'''
+	print(cat.id)
+	print(cat.item_id)
+	print(cat.category_name)
+	print(cat.count)
+	'''
+
+	'''
+	#print("Query all tasks:")
+	#print(select_all_categories())
+	#print("Query category by category_name like Genesis 9:")
+	#print(select_category_by_category_name('Genesis 9'))
+	#print("Query category by id = 5:")
+	#print(select_category_by_id(5))
+	#print("Query category by item_id = 156:")
+	#print(select_category_by_item_id(156))
+	#print("Query category by category_name like Necromancer 8.1:")
+	#print(select_category_by_category_name('Necromancer 8.1'))
+    
+
+	если разбивать таблицу, то запрос на селект потом джойнить
+	Select * from card t1 join author t2 on t1.fk_id = t2.id where t2.author_name = …
+	
 	url = 'https://render-state.to/cat/genesis-8-1-female/'
 	main(url)
+	'''

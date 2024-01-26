@@ -14,7 +14,7 @@ def db_init():
     sql_create_categories_table = """CREATE TABLE IF NOT EXISTS categories (
         id integer NOT NULL PRIMARY KEY,
         item_id integer NOT NULL UNIQUE,
-        name text NOT NULL,
+        category_name text NOT NULL,
         link text,
         count integer
     );"""

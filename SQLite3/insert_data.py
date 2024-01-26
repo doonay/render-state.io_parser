@@ -7,7 +7,7 @@ def insert_one_category(category):
     
     sql = ''' INSERT OR IGNORE INTO categories(
         item_id,
-        name,
+        category_name,
         link,
         count
     )VALUES(?,?,?,?) '''
