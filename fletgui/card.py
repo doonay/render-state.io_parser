@@ -1,8 +1,6 @@
 import flet as ft
 
 def main(page: ft.Page):
-
-
 	page.window_width = 600
 	page.window_height = 800
 	page.window_resizable = True
@@ -15,172 +13,172 @@ def main(page: ft.Page):
 	}
 	page.theme = ft.Theme(font_family="WorkSans")
 	page.update()
-	
-	header_number_text = ft.Text(
-		value = "Clickable with Ink"
-		)
+
+	#---HEADER---	
+	header_number_text = ft.Text(value = "#")
 	header_number_container = ft.Container(
 		content=header_number_text,
-		margin=10,
-		padding=10,
 		alignment=ft.alignment.center,
-		bgcolor=ft.colors.BLACK,
-		width=150,
-		height=150,
-		border_radius=10,
-		ink=True,
-		on_click=lambda e: print("Clickable with Ink clicked!"),
-	)
-	header_row = ft.Row(
-		[header_number_container,],
-		alignment=ft.MainAxisAlignment.CENTER,
-	)
-	page.add(header_row)
-
-	#-----------------------ниже карточки, выше заголовок
-
-	item_number = ft.Text( #циферка из базы !!!done!!!
-		value="100",
-		color="BLACK",
-		font_family="SpaceMono"
-		)
-	item_number_with_circle = ft.Container( #кружок под циферкой !!!done!!!
-			content=item_number,
-			border_radius=25,
-			width=30,
-			height=30,
-			bgcolor="WHITE",
-			alignment=ft.alignment.center
-		)
-	item_number_container = ft.Container( #контейнер под циферку из базы
-		#animate#bgcolor#blend_mode#blur#border#border_radius#clip_behavior#gradient#image_fit#image_opacity#image_repeat#image_src#image_src_base64#ink#shadow#shape#theme_mode#theme#url#url_target
-		#---События#on_click#on_hover#on_long_press
-		content=item_number_with_circle,
-		alignment=ft.alignment.center,
-		bgcolor=ft.colors.AMBER,
+		bgcolor="#2B2B2B",
 		width=50,
 		height=50,
-		#border_radius=50,
 		padding=0,
 		margin=0,
 		expand=False # не растягивать
 	)
-	category_name_text = ft.Text("Daz Studio")
-	category_container = ft.Container( # name from db
-			content=category_name_text,
-			#margin=10,
-			#padding=10,
-			alignment=ft.alignment.center,
-			bgcolor=ft.colors.RED,
-			width=320,
-			height=50,
-			#border_radius=10,
-			#border=ft.border.all(2, ft.colors.RED),
-			expand=True # растягивать
-		)
-	count_text = ft.Text("50240")
-	count_container = ft.Container(
-			content=count_text,
-			#margin=10,
-			#padding=10,
-			alignment=ft.alignment.center,
-			bgcolor=ft.colors.GREEN,
-			width=100,
-			height=50,
-			#border_radius=10,
-		)
-	switcher = ft.Text("SWITCHER")
-	switcher_container = ft.Container(
-			content=switcher,
-			#margin=10,
-			#padding=10,
-			alignment=ft.alignment.center,
-			bgcolor=ft.colors.RED,
-			width=100,
-			height=50,
-			#border_radius=10,
-
-		)
-	card_row = ft.Row([
-		item_number_container,
-		category_container,
-		count_container,
-		switcher_container,
-
-	],
-	alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+	header_name_text = ft.Text(value = "Category")
+	header_name_container = ft.Container(
+		content=header_name_text,
+		alignment=ft.alignment.center,
+		bgcolor="#2B2B2B",
+		width=320,
+		height=50,
+		expand=True # растягивать
 	)
-
-	page.add(
-		ft.Container(
-			content=card_row,
-			#margin=10,
-			#padding=10,
-			#alignment=ft.alignment.center,
-			bgcolor=ft.colors.BLACK,
-			#width='100%',
-			#height=80,
-			#border_radius=10,
-		)
+	header_count_text = ft.Text(value = "Count")
+	header_count_container = ft.Container(
+		content=header_count_text,
+		alignment=ft.alignment.center,
+		bgcolor="#2B2B2B",
+		width=100,
+		height=50,
+		expand=False # не растягивать
 	)
-
-	# avatar with failing foreground image and fallback text
-	circle_number = ft.CircleAvatar(
-		foreground_image_url="https://avatars.githubusercontent.com/u/_5041459?s=88&v=4",
-		content=ft.Text("100"),
+	header_status_text = ft.Text(value = "Status")
+	header_status_container = ft.Container(
+		content=header_status_text,
+		alignment=ft.alignment.center,
+		bgcolor="#2B2B2B",
+		width=110,
+		height=50,
+		expand=False # не растягивать
 	)
-	page.add(circle_number)
+	header_row = ft.Row(
+		[header_number_container,header_name_container,header_count_container,header_status_container,],
+		alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+	)
+	header_main_inner_container = ft.Container(
+		content=header_row,
+		margin=2,
+		bgcolor="#2B2B2B",
+		border_radius=5,
+	)
+	header_main_outer_container = ft.Container(
+		content=header_main_inner_container,
+		bgcolor="#3B3B3B",
+		border_radius=5,
+	)
+	page.add(header_main_outer_container)
+	#---END HEADER---
 
-	#---CARD---
+	#---TEMP CATEGORY DATA---
+	#(id, item_id, category_name, link, count, status)
+	category = (256, 2, 'Genesis 8 Female',	'https://render-state.to/cat/daz-studio/', 50240, 1)
+	#---END TEMP CATEGORY DATA---
+
+	#---CARD LISTENER---
+	def update_status(status_value: bool):
+		#print('Формируем апдэйт запрос:')
+		#print('таблица: categories')
+		#print('где айди =', 'ХЗ')
+		#print('апдейтим поле status на значение:', status_value)
+		pass
+	def sort_by_id(e):
+		pass
+	def sort_by_category_name(e):
+		pass
+	def sort_by_count(e):
+		pass
+	def sort_by_status(e):
+		pass
 	def switch_label_changed(e):
-		print('---')
-		status_label.value = ("tracked" if switcher.value else "ignored")
-		status_label.color = ("GREEN" if switcher.value else "RED")
-		print('Формируем апдэйт запрос:')
-		print('таблица: categories')
-		print('где айди =', 'ХЗ')
-		print('апдейтим поле status на значение:', switcher.value)
+		if switcher.value:
+			status_label.color = "GREEN"
+			status_label.value = "tracked"
+			switcher.value = True
+		else:
+			status_label.color = "RED"
+			status_label.value = "ignored"
+			switcher.value = False
 		page.update()
-	def some():
-		print(some)
+		#update_status(switcher.value)
+	#---END CARD LISTENER---
 
-	#---END CARD---
+	
+	#---CARD ---
+	#id from db
+	item_number = ft.Text( 
+		value=category[0],
+		color="WHITE",
+		font_family="SpaceMono"
+		)
+	item_number_with_circle = ft.Container(content=item_number,border_radius=25,width=30,height=30,bgcolor="#2B2B2B",alignment=ft.alignment.center)
+	item_number_container = ft.Container(content=item_number_with_circle,alignment=ft.alignment.center,bgcolor="#3B3B3B",width=50,height=50,
+	expand=False # не растягивать
+	)
 
-
-	#category = (id, item_id, category_name, link, count, status)
-	category = (1, 2, 'Daz Studio',	'https://render-state.to/cat/daz-studio/', 50240, 1)
-	#cat = ft.Text(f"{category}")
-
-	#---CARD---
-
-	#category_id = ft.Text(f"{category[0]}", key=str(category[0]))
-	category_id = ft.Text(value=category[0], color="#858584", font_family="SpaceMono", size=16, text_align="CENTER",)
-	circle_category_id_container = ft.Container(content=category_id, bgcolor="WHITE", border_radius=0, width=35, height=25, alignment=ft.alignment.center,)
-
-	#name = ft.Text(f"{category[2]}", key=str(category[0]))
-	name = ft.Text(spans=[
+	category_name_text = ft.Text(
+		spans=[
 			ft.TextSpan(
 				category[2],
 				url=category[3],
 			),
 		], size=26
 	)
+	category_container = ft.Container( 
+			content=category_name_text,
+			alignment=ft.alignment.center,
+			bgcolor="#3B3B3B",
+			width=320,
+			height=50,
+			expand=True # растягивать
+		)
+	count_text = ft.Text(category[4])
+	count_container = ft.Container(
+			content=count_text,
+			alignment=ft.alignment.center,
+			bgcolor="#3B3B3B",
+			width=100,
+			height=50,
+			expand=False # не растягивать
+		)
+	switcher = ft.Text("SWITCHER")
+	status_label = ft.Text(
+		color = "GREEN",
+		value="tracked",
+		font_family="RobotoSlab")
 
-	#count = ft.Text(f"{category[4]}", key=str(category[0]))
-	count = ft.Text(value=category[4], size=26,)
+	status_label_container = ft.Container(
+		content=status_label,
+		alignment=ft.alignment.center,
+		bgcolor="#3B3B3B",
+		width=50,
+		height=50,
+		expand=False # не растягивать
+	)
+	switcher = ft.Switch(
+		active_color="WHITE",
+		value=bool(category[5]),
+		on_change=switch_label_changed)
+	switcher_container = ft.Container(
+			content=switcher,
+			alignment=ft.alignment.center,
+			bgcolor="#3B3B3B",
+			width=60,
+			height=50,
+			expand=False # не растягивать
+		)
 
-	status = ft.Text(f"{category[5]}")
-	status_label = ft.Text(color = "GREEN", value="tracked", size=26, font_family="RobotoSlab")
-	switcher = ft.Switch(active_color="WHITE", value=True, on_change=switch_label_changed)
-
-	'''
-	card_row = ft.Row([circle_container, category, count, status_label, switcher], alignment=ft.MainAxisAlignment.SPACE_AROUND,)
-	'''
-	card_row = ft.Row([circle_category_id_container, name, count, switcher], alignment=ft.MainAxisAlignment.SPACE_AROUND,)
-	card = ft.Container(content=ft.Column([card_row]), width='80%', padding=10, bgcolor="BLACK")
-	#---END CARD---
-
-	page.add(card)
+	card_row = ft.Row([
+		item_number_container,
+		category_container,
+		count_container,
+		status_label_container,
+		switcher_container,
+	],
+	alignment=ft.MainAxisAlignment.SPACE_BETWEEN)
+	page.add(card_row)
+	#---END ITEM CARD---
 
 ft.app(target=main, assets_dir="assets")
 
